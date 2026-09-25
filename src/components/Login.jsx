@@ -7,20 +7,23 @@ import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailId, setEmailId] = useState("chandru1@gmail.com");
+  const [password, setPassword] = useState("chandru@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
-    const result = await http.post("/auth/login", {
-      emailId,
-      password,
-    });
-
-    const userDetails = result.data.userRes;
-
-    dispatch(addUser(userDetails));
-    navigate("/feed");
+    try {
+      const result = await http.post("/auth/login", {
+        emailId,
+        password,
+      });
+      const userDetails = result.data.userRes;
+      dispatch(addUser(userDetails));
+      navigate("/feed");
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
   return (
     <div className="card card-border bg-base-100 w-96 h-96 my-4 m-auto">
@@ -47,7 +50,7 @@ const Login = () => {
             setPassword(e.target.value);
           }}
         />
-
+         <h2 className="text-red-600">{error}</h2>
         <button className="btn btn-primary" onClick={handleLogin}>
           Login
         </button>

@@ -1,9 +1,21 @@
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import http from "../utils/service";
+import { removeUser } from "../utils/userSlice";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      const res = await http.post("/auth/logout");
+      if (res.status === 200) {
+        dispatch(removeUser());
+        navigate("/login");
+      }
+    } catch (err) {}
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
@@ -11,7 +23,7 @@ const NavBar = () => {
       </div>
       <div className="flex gap-2">
         <div className="dropdown dropdown-end">
-          {user.photoUrl && (
+          {user?.photoUrl && (
             <div className="flex items-center">
               <h2>Hi, {user.firstName}</h2>
               <div
@@ -33,16 +45,13 @@ const NavBar = () => {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a className="justify-between">
+              <Link to="/profile" className="justify-between">
                 Profile
-                <span className="badge">New</span>
-              </a>
+              </Link>
             </li>
+
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         </div>
