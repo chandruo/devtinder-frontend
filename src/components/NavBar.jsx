@@ -9,7 +9,7 @@ const NavBar = () => {
   const navigate = useNavigate();
   const dummyUrl =
     "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=";
-  const { firstName } = user;
+  const  firstName  = user?.firstName;
   const photoUrl = user?.photoUrl || dummyUrl;
 
   const handleLogout = async () => {
@@ -35,7 +35,7 @@ const NavBar = () => {
 
       <div className="flex gap-2">
         <div className="dropdown dropdown-end">
-          {photoUrl && (
+          {firstName && (
             <div className="flex items-center">
               <h2>Hi, {firstName}</h2>
               <div

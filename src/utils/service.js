@@ -1,8 +1,7 @@
 import axios from "axios";
 const http = axios.create({
-  baseURL: "http://localhost:777",
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
 });
-
 
 export default http;
