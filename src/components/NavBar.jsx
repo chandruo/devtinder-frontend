@@ -7,6 +7,11 @@ const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dummyUrl =
+    "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=";
+  const { firstName } = user;
+  const photoUrl = user?.photoUrl || dummyUrl;
+
   const handleLogout = async () => {
     try {
       const res = await http.post("/auth/logout");
@@ -19,13 +24,20 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">dev tinder</a>
+        <Link to="/feed" className="btn btn-ghost text-xl">
+          <img
+            className="w-12 h-12 rounded-full m-2"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc4aH3bczxFTXCjCzTX5HWw2RRfgJP_bxInMF0kdlWgw&s=10"
+            alt=""
+          />
+        </Link>
       </div>
+
       <div className="flex gap-2">
         <div className="dropdown dropdown-end">
-          {user?.photoUrl && (
+          {photoUrl && (
             <div className="flex items-center">
-              <h2>Hi, {user.firstName}</h2>
+              <h2>Hi, {firstName}</h2>
               <div
                 tabIndex={0}
                 role="button"
@@ -34,7 +46,7 @@ const NavBar = () => {
                 <div className="w-10 rounded-full flex">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src={user.photoUrl}
+                    src={photoUrl}
                   />
                 </div>
               </div>
@@ -47,6 +59,16 @@ const NavBar = () => {
             <li>
               <Link to="/profile" className="justify-between">
                 Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/connections" className="justify-between">
+                Connections
+              </Link>
+            </li>
+            <li>
+              <Link to="/requests" className="justify-between">
+                Requests
               </Link>
             </li>
 
