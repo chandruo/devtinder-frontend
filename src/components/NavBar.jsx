@@ -19,7 +19,9 @@ const NavBar = () => {
         dispatch(removeUser());
         navigate("/login");
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   };
   return (
     <div className="navbar bg-base-100 shadow-sm">

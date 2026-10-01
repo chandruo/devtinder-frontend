@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react";
 import http from "../utils/service";
 import { addConnection } from "../utils/connectionSlice";

@@ -1,6 +1,4 @@
-import React from "react";
 import { useState } from "react";
-import axios from "axios";
 import http from "../utils/service";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
@@ -32,7 +30,7 @@ const Login = () => {
   const handleSignup = async () => {
     setError("");
     try {
-      const result = await http.post("/auth/signup", {
+       await http.post("/auth/signup", {
         firstName,
         lastName,
         emailId,

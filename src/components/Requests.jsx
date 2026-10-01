@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useEffect } from "react";
 import http from "../utils/service";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,16 +12,20 @@ const Requests = () => {
       const res = await http.get("user/requests/received");
       const requests = res.data;
       dispatch(addRequest(requests));
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   const handleAction = async (request, action) => {
     try {
       const url = `/request/review/${action}/${request._id}`;
       console.log(url, request);
-      const res = await http.post(url);
+       await http.post(url);
       dispatch(removeRequest(request._id));
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   };
 
   useEffect(() => {

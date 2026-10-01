@@ -8,7 +8,7 @@ const UserCard = ({ feed }) => {
   const handleAction = async (request, action) => {
     try {
       const url = `/request/send/${action}/${request._id}`;
-      const res = await http.post(url);
+      await http.post(url);
       dispatch(removeFeed(request._id));
     } catch (err) {
       console.log(err);
