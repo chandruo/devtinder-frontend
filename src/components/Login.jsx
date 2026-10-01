@@ -107,7 +107,7 @@ const Login = () => {
           setIsLogin(!isLogin);
         }}
       >
-        {isLogin ? "New User? signup here" : "Existing user Login here"}
+        {isLogin ? "New User? signup" : "Existing user, Login here"}
       </p>
     </div>
   );
